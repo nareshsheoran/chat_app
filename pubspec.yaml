@@ -33,7 +33,9 @@ dependencies:
   flutter_lints: ^1.0.4
   cached_network_image: ^3.1.0
   faker: ^2.0.0
-  jiffy: any
+  jiffy: ^4.1.0
+  logger: ^1.1.0
+  stream_chat_flutter_core: ^2.2.1
 
 
   # The following adds the Cupertino Icons font to your application.
