@@ -1,14 +1,17 @@
+import 'package:chat_app/app.dart';
 import 'package:chat_app/helper.dart';
 import 'package:chat_app/pages/calls_page.dart';
 import 'package:chat_app/pages/contacts_page.dart';
 import 'package:chat_app/pages/messages_page.dart';
 import 'package:chat_app/pages/notifications_page.dart';
+import 'package:chat_app/screens/screens.dart';
 import 'package:chat_app/shared/theme.dart';
 import 'package:chat_app/widget/avatar.dart';
 import 'package:chat_app/widget/glowing_action_button.dart';
 import 'package:chat_app/widget/icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -42,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //StreamChatCore.of(context).client
     return Scaffold(
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
@@ -54,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               value,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 17,
               ),
             );
           },
@@ -72,7 +76,15 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 24.0),
-            child: Avatar.small(url: Helper.randomPictureUrl()),
+            child: Hero(
+              tag: 'hero-profile-picture',
+              child: Avatar.small(
+                url: context.currentUserImage,
+                onTap: () {
+                  Navigator.of(context).push(ProfileScreen.route);
+                },
+              ),
+            ),
           )
         ],
       ),
@@ -143,7 +155,15 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
                   color: AppColors.secondary,
                   icon: CupertinoIcons.add,
                   onPressed: () {
-                    print('Todo New Message');
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => const Dialog(
+                        child: AspectRatio(
+                          aspectRatio: 8 / 7,
+                          child: ContactsPage(),
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -168,14 +188,14 @@ class _BottomNavigationBarState extends State<_BottomNavigationBar> {
 }
 
 class _NavigationBarItem extends StatelessWidget {
-  const _NavigationBarItem(
-      {Key? key,
-      required this.lable,
-      required this.icon,
-      required this.index,
-      required this.onTap,
-      required this.isSelected})
-      : super(key: key);
+  const _NavigationBarItem({
+    Key? key,
+    required this.lable,
+    required this.icon,
+    required this.index,
+    required this.onTap,
+    required this.isSelected,
+  }) : super(key: key);
 
   final int index;
   final String lable;

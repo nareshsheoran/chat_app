@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
@@ -10,17 +11,17 @@ class AppColors {
   static const textFaded = Color(0xFF9899A5);
   static const iconLight = Color(0xFFB1B4C0);
   static const iconDark = Color(0xFFB1B3C1);
-  static const textHighLight = secondary;
+  static const textHighlight = secondary;
   static const cardLight = Color(0xFFF9FAFE);
   static const cardDark = Color(0xFF303334);
 }
 
-class LightColors {
+class _LightColors {
   static const background = Colors.white;
   static const card = AppColors.cardLight;
 }
 
-class DarkColors {
+class _DarkColors {
   static const background = Color(0xFF1B1E1F);
   static const card = AppColors.cardDark;
 }
@@ -29,28 +30,60 @@ class AppTheme {
   static const accentColor = AppColors.accent;
   static final visualDensity = VisualDensity.adaptivePlatformDensity;
 
-  static ThemeData light() => ThemeData(
+  final darkBase = ThemeData.dark();
+  final lightBase = ThemeData.light();
+
+   ThemeData get light => ThemeData(
       brightness: Brightness.light,
+      colorScheme: lightBase.colorScheme.copyWith(secondary: accentColor),
       accentColor: accentColor,
       visualDensity: visualDensity,
+       appBarTheme: lightBase.appBarTheme.copyWith(
+         iconTheme: lightBase.iconTheme,
+         backgroundColor: Colors.transparent,
+         elevation: 0,
+         centerTitle: true,
+         titleTextStyle: const TextStyle(
+           fontWeight: FontWeight.bold,
+           fontSize: 17,
+           color: AppColors.textDark,
+         ),
+         systemOverlayStyle: SystemUiOverlayStyle.dark,
+       ),
       textTheme:
           GoogleFonts.mulishTextTheme().apply(bodyColor: AppColors.textDark),
-      backgroundColor: LightColors.background,
-      scaffoldBackgroundColor: LightColors.card,
-      cardColor: LightColors.card,
+      backgroundColor: _LightColors.background,
+       elevatedButtonTheme: ElevatedButtonThemeData(
+         style: ElevatedButton.styleFrom(primary: AppColors.secondary),
+       ),
+      scaffoldBackgroundColor: _LightColors.card,
+      cardColor: _LightColors.card,
       primaryTextTheme:
           const TextTheme(headline6: TextStyle(color: AppColors.textDark)),
       iconTheme: const IconThemeData(color: AppColors.iconDark));
 
-  static ThemeData dark() => ThemeData(
+   ThemeData get dark => ThemeData(
       brightness: Brightness.light,
       accentColor: accentColor,
       visualDensity: visualDensity,
       textTheme: GoogleFonts.interTextTheme()
           .apply(bodyColor: AppColors.textLigth),
-      backgroundColor: DarkColors.background,
-      scaffoldBackgroundColor: DarkColors.card,
-      cardColor: DarkColors.card,
+      backgroundColor: _DarkColors.background,
+       appBarTheme: darkBase.appBarTheme.copyWith(
+         backgroundColor: Colors.transparent,
+         elevation: 0,
+         centerTitle: true,
+         titleTextStyle: const TextStyle(
+           fontWeight: FontWeight.bold,
+           fontSize: 17,
+         ),
+         systemOverlayStyle: SystemUiOverlayStyle.light,
+       ),
+       elevatedButtonTheme: ElevatedButtonThemeData(
+         style: ElevatedButton.styleFrom(primary: AppColors.secondary),
+       ),
+      scaffoldBackgroundColor: _DarkColors.card,
+      cardColor: _DarkColors.card,
       primaryTextTheme:
           const TextTheme(headline6: TextStyle(color: AppColors.textLigth)),
       iconTheme: const IconThemeData(color: AppColors.iconLight));
