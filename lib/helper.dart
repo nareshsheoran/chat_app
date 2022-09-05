@@ -50,5 +50,6 @@ abstract class Helper {
     } else {
       return null;
     }
+    return null;
   }
 }

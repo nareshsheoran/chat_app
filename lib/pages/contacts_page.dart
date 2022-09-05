@@ -1,7 +1,6 @@
 import 'package:chat_app/app.dart';
+import 'package:chat_app/chat_widget/widgets.dart';
 import 'package:chat_app/screens/chat_screen.dart';
-import 'package:chat_app/widget/avatar.dart';
-import 'package:chat_app/widget/display_error_message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
@@ -11,8 +10,8 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UserListCore(
-      pagination: const PaginationParams(limit: 20),
+    return UserListCore(limit: 20,
+      // pagination: const PaginationParams(limit: 20),
       filter: Filter.notEqual('id', context.currentUser!.id),
       emptyBuilder: (context) => const Center(
         child: Text(
