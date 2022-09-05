@@ -1,14 +1,10 @@
 import 'dart:async';
-
 import 'package:chat_app/app.dart';
+import 'package:chat_app/chat_widget/widgets.dart';
 import 'package:chat_app/helper.dart';
 import 'package:chat_app/models/models.dart';
-import 'package:chat_app/widget/display_error_message.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:chat_app/shared/theme.dart';
-import 'package:chat_app/widget/glowing_action_button.dart';
-import 'package:chat_app/widget/icon_button.dart';
-import 'package:chat_app/widget/widgets.dart';
 import 'package:collection/src/iterable_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -198,7 +194,7 @@ class _MessageTile extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
                 child: Text(message.text ?? ''),
               ),
             ),

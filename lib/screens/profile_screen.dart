@@ -1,6 +1,6 @@
 import 'package:chat_app/app.dart';
 import 'package:chat_app/screens/screens.dart';
-import 'package:chat_app/widget/avatar.dart';
+import 'package:chat_app/chat_widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 

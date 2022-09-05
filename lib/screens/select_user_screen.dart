@@ -1,7 +1,7 @@
 import 'package:chat_app/app.dart';
 import 'package:chat_app/models/demo_users.dart';
 import 'package:chat_app/screens/home_screen.dart';
-import 'package:chat_app/widget/avatar.dart';
+import 'package:chat_app/chat_widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
@@ -16,61 +16,61 @@ class SelectUserScreen extends StatefulWidget {
 }
 
 class _SelectUserScreenState extends State<SelectUserScreen> {
-
   bool _loading = false;
 
-  Future<void>  onUserSelected(DemoUser user) async {
+  Future<void> onUserSelected(DemoUser user) async {
     setState(() {
       _loading = true;
     });
 
     try {
-      final client = StreamChatCore
-          .of(context)
-          .client;
+      final client = StreamChatCore.of(context).client;
       await client.connectUser(
-        User(
+          User(
             id: user.id,
-          extraData: {
-        'name' : user.name,
-        'image' : user.image,
-        },
-        ),
-        client
-          .devToken(user.id)
-          .rawValue,
-
-      );
+            extraData: {'name': user.name, 'image': user.image},
+          ),
+          client.devToken(user.id).rawValue);
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomeScreen()),);
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
     } on Exception catch (e, st) {
-      logger.e('Could not connect user',e,st);
+      logger.e('Could not connect user', e, st);
       setState(() {
         _loading = false;
       });
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: (_loading) ? const CircularProgressIndicator() : Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Padding(padding: EdgeInsets.all(32),
-                child: Text('Select a user',
-                  style: TextStyle(fontSize: 24, letterSpacing: 0.4),),),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: users.length,
-                    itemBuilder: (context, index) {
-                      return SelectUserButton(
-                          user: users[index], onPressed: onUserSelected);
-                    }),)
-            ],),),
+        child: (_loading)
+            ? const CircularProgressIndicator()
+            : Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(32),
+                      child: Text(
+                        'Select a user',
+                        style: TextStyle(fontSize: 24, letterSpacing: 0.4),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: users.length,
+                          itemBuilder: (context, index) {
+                            return SelectUserButton(
+                                user: users[index], onPressed: onUserSelected);
+                          }),
+                    )
+                  ],
+                ),
+              ),
       ),
     );
   }
@@ -82,7 +82,7 @@ class SelectUserButton extends StatelessWidget {
       : super(key: key);
 
   final DemoUser user;
-  final Function (DemoUser user) onPressed;
+  final Function(DemoUser user) onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +93,13 @@ class SelectUserButton extends StatelessWidget {
         child: Row(
           children: [
             Avatar.large(url: user.image),
-            Padding(padding: EdgeInsets.all(8),
-              child: Text(user.name, style: TextStyle(fontSize: 16),),)
+            Padding(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                user.name,
+                style: TextStyle(fontSize: 16),
+              ),
+            )
           ],
         ),
       ),

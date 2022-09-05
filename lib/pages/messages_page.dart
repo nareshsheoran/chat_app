@@ -1,12 +1,10 @@
 import 'package:chat_app/app.dart';
+import 'package:chat_app/chat_widget/widgets.dart';
 import 'package:chat_app/helper.dart';
 import 'package:chat_app/models/message_data.dart';
 import 'package:chat_app/models/story_data.dart';
 import 'package:chat_app/screens/screens.dart';
 import 'package:chat_app/shared/theme.dart';
-import 'package:chat_app/widget/avatar.dart';
-import 'package:chat_app/widget/display_error_message.dart';
-import 'package:chat_app/widget/unread_indicator.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +53,7 @@ class _MessagesPageState extends State<MessagesPage> {
       listBuilder: (context, channels) {
         return CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(child: const _Stories()),
+            const SliverToBoxAdapter(child: _Stories()),
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return _MessageTitle(

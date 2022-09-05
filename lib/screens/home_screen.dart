@@ -1,4 +1,5 @@
 import 'package:chat_app/app.dart';
+import 'package:chat_app/chat_widget/widgets.dart';
 import 'package:chat_app/helper.dart';
 import 'package:chat_app/pages/calls_page.dart';
 import 'package:chat_app/pages/contacts_page.dart';
@@ -6,9 +7,6 @@ import 'package:chat_app/pages/messages_page.dart';
 import 'package:chat_app/pages/notifications_page.dart';
 import 'package:chat_app/screens/screens.dart';
 import 'package:chat_app/shared/theme.dart';
-import 'package:chat_app/widget/avatar.dart';
-import 'package:chat_app/widget/glowing_action_button.dart';
-import 'package:chat_app/widget/icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
@@ -48,9 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     //StreamChatCore.of(context).client
     return Scaffold(
       appBar: AppBar(
-        iconTheme: Theme.of(context).iconTheme,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         title: ValueListenableBuilder(
           valueListenable: title,
           builder: (BuildContext context, String value, _) {
